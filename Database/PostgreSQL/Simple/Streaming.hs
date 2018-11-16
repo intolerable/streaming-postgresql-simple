@@ -474,7 +474,7 @@ liftMask maskVariant k = do
         unmask (Return q) = Return q
         unmask (Effect m) = Effect $ do
             -- retrieve base's unmask and apply to merged action
-            Masked unmaskVariant <- liftIO $ readIORef ioref
+            ~(Masked unmaskVariant) <- liftIO $ readIORef ioref
             unmaskVariant (m >>= chunk >>= return . unmask)
 
         -- merge adjacent actions in base monad
